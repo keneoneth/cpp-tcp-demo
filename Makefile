@@ -6,15 +6,15 @@ PORT=8080
 CFLAGS=-std=c++11 -DPORT=$(PORT)
 
 build_server:
-	$(CC) ./server_end/server.cpp $(CFLAGS) -o server_exe
+	$(CC) ./server_end/server.cpp $(CFLAGS) -o ./bin/server_exe
 
 build_client:
-	$(CC) ./client_end/client.cpp $(CFLAGS) -o client_exe
+	$(CC) ./client_end/client.cpp $(CFLAGS) -o ./bin/client_exe
 
 build: build_client build_server
 
 run_server:
-	./server_exe
+	./bin/server_exe
 
 run_client:
-	./client_exe
+	./bin/client_exe
