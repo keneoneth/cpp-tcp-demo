@@ -36,11 +36,11 @@ Expected print in the client's console:
 ./bin/client_exe 127.0.0.1 8080
 hello from client
 created socket file descriptor: 3
-Successfully SEND message to server: 'sent message count: 1'
+Successful SEND message to server: 'sent message count: 1'
 Successful RECV message from server: 'sent message count: 1'
-Successfully SEND message to server: 'sent message count: 2'
+Successful SEND message to server: 'sent message count: 2'
 Successful RECV message from server: 'sent message count: 2'
-Successfully SEND message to server: 'sent message count: 3'
+Successful SEND message to server: 'sent message count: 3'
 Successful RECV message from server: 'sent message count: 3'
 ```
 
