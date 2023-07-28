@@ -16,7 +16,7 @@ extern "C"
 #endif
 
 // defines how the sent message looks like
-#define MSSG_TEMPLATE "'sent message count: %u'\n"
+#define MSSG_TEMPLATE "'sent message count: %u'"
 
 using namespace std;
 
@@ -84,7 +84,7 @@ void start_client_sending(const int &socket_fd)
             throw std::runtime_error("sending message to server failed with error " + std::string(strerror(errno)));
         }
 
-        printf("Successfully SEND message to server: %s", buff);
+        printf("Successfully SEND message to server: %s\n", buff);
 
         // clear message in buffer
         memset(buff, 0, BUFF_SIZE);
@@ -101,7 +101,7 @@ void start_client_sending(const int &socket_fd)
             throw std::runtime_error("receiving echoed message from server failed with error " + std::string(strerror(errno)));
         }
 
-        printf("Successful RECV message from server: %s", buff);
+        printf("Successful RECV message from server: %s\n", buff);
 
         // // sleep for some time before resending new messages
         sleep(MSSG_SEND_PERIOD_SEC);
