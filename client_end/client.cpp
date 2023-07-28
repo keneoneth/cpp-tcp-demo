@@ -103,7 +103,7 @@ void start_client_sending(const int &socket_fd)
 
         printf("Successful RECV message from server: %s\n", buff);
 
-        // // sleep for some time before resending new messages
+        // sleep for some time before resending new messages
         sleep(MSSG_SEND_PERIOD_SEC);
     }
 

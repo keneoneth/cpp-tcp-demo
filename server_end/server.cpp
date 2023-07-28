@@ -149,7 +149,7 @@ void on_accept(int server_fd, short ev, void *arg)
 
     printf("accepted connection socket %d\n", client_fd);
 
-    // // declares the socket read event
+    // declares the socket read event
     EventArgsRead *event_args_read = (EventArgsRead *)malloc(sizeof(EventArgsRead));
 
     event_set(
