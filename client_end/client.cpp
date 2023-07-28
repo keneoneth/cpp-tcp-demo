@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
     auto socket_fd = create_client_socket();
     printf("created socket file descriptor: %d\n", socket_fd);
 
-    // Step 2:connect socket to server's ip/port
+    // Step 2: connect socket to server's ip/port
     connect_socket_in_addr(socket_fd, server_ip, server_port);
 
     // Step 3: start sending messages periodically
