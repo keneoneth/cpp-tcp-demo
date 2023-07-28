@@ -58,29 +58,6 @@ void set_socket_opt(const int &socket_fd, int &opt)
     }
 }
 
-// TODO: can remove?
-// void set_socket_nonblocking(const int &socket_fd)
-// {
-//     // set socket to non-blocking mode
-//     int flags;
-
-//     flags = fcntl(socket_fd, F_GETFL); // get flags
-
-//     if (flags == -1) // failed condition
-//     {
-//         throw std::runtime_error("socket get flag failed with error " + std::string(strerror(errno)));
-//     }
-
-//     flags |= O_NONBLOCK; // add non-blocking flag
-
-//     const int ret_fcnt1 = fcntl(socket_fd, F_SETFL, flags);
-
-//     if (ret_fcnt1 == -1) // failed condition
-//     {
-//         throw std::runtime_error("socket set flag failed with error " + std::string(strerror(errno)));
-//     }
-// }
-
 sockaddr_in bind_socket_in_addr(const int &socket_fd)
 {
     struct sockaddr_in sin;
