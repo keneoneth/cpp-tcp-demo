@@ -84,7 +84,7 @@ void start_client_sending(const int &socket_fd)
             throw std::runtime_error("sending message to server failed with error " + std::string(strerror(errno)));
         }
 
-        printf("Successfully SEND message to server: %s\n", buff);
+        printf("Successful SEND message to server: %s\n", buff);
 
         // clear message in buffer
         memset(buff, 0, BUFF_SIZE);
