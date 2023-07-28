@@ -9,6 +9,8 @@ extern "C"
 #include <event.h>
 }
 
+#include "server.hpp"
+
 #ifndef PORT
 #define PORT 0
 #endif
@@ -18,16 +20,6 @@ extern "C"
 #endif
 
 using namespace std;
-
-struct EventArgs
-{
-    sockaddr_in sin;
-};
-
-struct Client
-{
-    event ev_read;
-};
 
 int create_server_socket()
 {
@@ -80,7 +72,7 @@ sockaddr_in bind_socket_in_addr(const int &socket_fd)
 
 void on_read(int client_fd, short ev, void *arg)
 {
-    Client * client = (Client *)arg;
+    EventArgsRead *event_args_read = (EventArgsRead *)arg;
 
     char *buff = (char *)malloc(BUFF_SIZE * sizeof(char));
 
@@ -100,9 +92,9 @@ void on_read(int client_fd, short ev, void *arg)
         }
         printf("closed connection with socket %d after fail read\n", client_fd);
 
-        event_del(&(client->ev_read)); // delete event
-        free(client);                  // deallocate client
-        free(buff);                    // deallocate buffer
+        event_del(&(event_args_read->ev_read)); // delete event
+        free(event_args_read);                  // deallocate event args
+        free(buff);                             // deallocate buffer
         return;
     }
 
@@ -129,9 +121,9 @@ void on_read(int client_fd, short ev, void *arg)
         }
         printf("closed connection with socket %d after fail send\n", client_fd);
 
-        event_del(&(client->ev_read)); // delete event
-        free(client);                  // deallocate client
-        free(buff);                    // deallocate buffer
+        event_del(&(event_args_read->ev_read)); // delete event
+        free(event_args_read);                  // deallocate event args
+        free(buff);                             // deallocate buffer
         return;
     }
 
@@ -140,8 +132,8 @@ void on_read(int client_fd, short ev, void *arg)
 
 void on_accept(int server_fd, short ev, void *arg)
 {
-    EventArgs *event_args = (EventArgs *)arg; // cast argument back to event args
-    const auto sin = event_args->sin;         // retrieve sin
+    EventArgsAccept *event_args_accept = (EventArgsAccept *)arg; // cast argument back to event args
+    const auto sin = event_args_accept->sin;                     // retrieve sin
 
     socklen_t in_addr_len = sizeof(sin);
     int client_fd = accept(
@@ -158,17 +150,17 @@ void on_accept(int server_fd, short ev, void *arg)
     printf("accepted connection socket %d\n", client_fd);
 
     // // declares the socket read event
-    Client *client = (Client *)malloc(sizeof(Client));
+    EventArgsRead *event_args_read = (EventArgsRead *)malloc(sizeof(EventArgsRead));
 
     event_set(
-        &(client->ev_read),   // struct event *ev
-        client_fd,            // int fd
-        EV_READ | EV_PERSIST, // short event
-        on_read,              // void (*fn)(int, short, void *)
-        client                // void *arg
+        &(event_args_read->ev_read), // struct event *ev
+        client_fd,                   // int fd
+        EV_READ | EV_PERSIST,        // short event
+        on_read,                     // void (*fn)(int, short, void *)
+        event_args_read              // void *arg
     );
 
-    event_add(&(client->ev_read), nullptr); // activate read event
+    event_add(&(event_args_read->ev_read), nullptr); // activate read event
 }
 
 void start_server_listening(const int &server_fd, const sockaddr_in &sin)
@@ -189,15 +181,15 @@ void start_server_listening(const int &server_fd, const sockaddr_in &sin)
     // initialize libevent
     event_init();
 
-    EventArgs event_args;
-    event_args.sin = sin;
+    EventArgsAccept event_args_accept;
+    event_args_accept.sin = sin;
 
     event_set(
         &ev_accept,           // struct event *ev
         server_fd,            // int fd
         EV_READ | EV_PERSIST, // short event
         on_accept,            // void (*fn)(int, short, void *)
-        (&event_args)         // void *arg
+        (&event_args_accept)  // void *arg
     );
     event_add(&ev_accept, nullptr); // activate accept event
 
