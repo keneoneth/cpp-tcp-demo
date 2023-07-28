@@ -17,9 +17,43 @@ Note: To build server or client individually, execute `make build_client` or exe
 
 ## Run server
 open a terminal, execute `make run_server`
+Expected print in the console: 
+```
+./bin/server_exe
+hello from server
+created socket file descriptor: 3
+created socket option: 32681
+start server listening at 0.0.0.0/8080 ...
+```
 
 ## Run client
-open one or more terminals, execute `make run_client` on each of them to test the server for simultaneuously accepting connections from >1 clients  
+open one or more terminals, execute `make run_client SERVER_IP=127.0.0.1 SERVER_PORT=8080` on each of them to test the server for simultaneously accepting connections from >1 clients 
+Once connected, the client will send a message count info. to the server periodically (e.g. every 1 sec)  
+Note: you may kill the process anytime by ctrl-c to stop the client  
+
+Expected print in the client's console: 
+```
+./bin/client_exe 127.0.0.1 8080
+hello from client
+created socket file descriptor: 3
+Successfully SEND message to server: 'sent message count: 1'
+Successful RECV message from server: 'sent message count: 1'
+Successfully SEND message to server: 'sent message count: 2'
+Successful RECV message from server: 'sent message count: 2'
+Successfully SEND message to server: 'sent message count: 3'
+Successful RECV message from server: 'sent message count: 3'
+```
+
+And expected print in the server's console:  
+```
+accepted connection socket 7
+read data from socket 7: 'sent message count: 1'
+sent data to socket 7: 'sent message count: 1'
+read data from socket 7: 'sent message count: 2'
+sent data to socket 7: 'sent message count: 2'
+read data from socket 7: 'sent message count: 3'
+sent data to socket 7: 'sent message count: 3'
+```
 
 ## Change configs  
 The Makefile defines the following parameters for easy modifications
