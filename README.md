@@ -20,3 +20,10 @@ open a terminal, execute `make run_server`
 
 ## Run client
 open one or more terminals, execute `make run_client` on each of them to test the server for simultaneuously accepting connections from >1 clients  
+
+## Change configs  
+The Makefile defines the following parameters for easy modifications
+CC=g++ # specifies the compiler to use  
+PORT=8080 # specifies the port number the server listens to  
+BUFF_SIZE=8192 # specifies the buffer size of the TCP socket  
+MSSG_SEND_PERIOD_SEC=1 # specifies how frequent the message is sent from client to server (in terms of seconds)  
