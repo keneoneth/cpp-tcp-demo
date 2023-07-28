@@ -16,7 +16,7 @@ execute `make build`
 Note: To build server or client individually, execute `make build_client` or execute `make build_client`  
 
 ## Run server
-open a terminal, execute `make run_server`
+open a terminal, execute `make run_server`  
 Expected print in the console: 
 ```
 ./bin/server_exe
