@@ -21,3 +21,7 @@ run_server:
 
 run_client:
 	./bin/client_exe $(SERVER_IP) $(SERVER_PORT)
+
+clean:
+	rm ./bin/server_exe
+	rm ./bin/client_exe
