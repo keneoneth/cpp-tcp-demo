@@ -59,7 +59,7 @@ sent data to socket 7: 'sent message count: 3'
 execute `make clean`  
 
 ## Change configs  
-The Makefile defines the following parameters for easy modifications
+The Makefile defines the following parameters for easy modifications  
 CC=g++ # specifies the compiler to use  
 PORT=8080 # specifies the port number the server listens to  
 BUFF_SIZE=8192 # specifies the buffer size of the TCP socket  
